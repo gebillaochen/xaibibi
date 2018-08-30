@@ -1,0 +1,48 @@
+{layout name="public:layout"/}
+
+<h4 class="text-center text-success">用户列表</h4>
+<hr>
+
+<table class="table table-hover text-center">
+    <tr>
+        <td>ID</td>
+        <td>用户名</td>
+        <td>邮箱</td>
+        <td>手机号</td>
+        <td>注册时间</td>
+        <td>身份</td>
+        <td>状态</td>
+        <td colspan="2">操作</td>
+    </tr>
+    {volist name="userList" id="user" empty="$empty"}
+    <tr>
+        <td>{$user.id}</td>
+        <td>{$user.name}</td>
+        <td>{$user.email}</td>
+        <td>{$user.mobile}</td>
+        <td>{$user.create_time}</td>
+        <td>
+            {eq name="$user.is_admin" value="0"}
+                <span style="color: #3e8f3e">注册会员</span>
+            {else/}
+                <span style=" color: red">超级管理员</span>
+            {/eq}
+        </td>
+        <td>{$user.status}</td>
+        {eq name="$user.id" value="$Think.session.user_id"}
+        <td><a href="{:url('user/userEdit')}">编辑</a></td>
+        {/eq}
+        {neq name="$user.id" value="$Think.session.user_id"}
+        <td><a onclick="dele();return false">删除</a></td>
+        {/neq}
+    </tr>
+    {/volist}
+</table>
+
+<script>
+    function dele() {
+        if (confirm('确认删除吗？')==true){
+            window.location.href="{:url('user/doDelete',['id'=>$user.id])}"
+        }
+    }
+</script>

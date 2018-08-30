@@ -1,0 +1,55 @@
+{include file="public:header"/}
+{include file="public:nav"/}
+<div class="row">
+    <div class="col-md-8">
+        <div class="page-header">
+            <h2>发布言论</h2>
+        </div>
+        <form action="{:url('index/save')}" class="form-horizontal" method="post" id="login" enctype="multipart/form-data">
+
+            <input type="hidden" name="user_id" value="{$Think.session.user_id}">
+
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">标题：</label>
+                <div class="col-sm-10">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="标题  ">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">分类：</label>
+                <div class="col-sm-10">
+                    <select name="cate_id" class="form-control">
+                        {volist name="cateList" id="cate"}
+                        <option value="{$cate.id}">{$cate.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="title" class="col-sm-2 control-label">内容：</label>
+                <div class="col-sm-10">
+                    <textarea name="content" id="content" class="form-control" rows="3" placeholder="内容"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="title_img" class="col-sm-2 control-label">标题图片</label>
+                <input type="file" id="title_img" name="title_img" class="control-label">
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">发布</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        bkLib.onDomLoaded(function() {
+            new nicEditor({iconsPath : '/static/js/nicEditorIcons.gif'}).panelInstance('content');
+        });
+    </script>
+    {include file="public:right"/}
+    {include file="public:footer"/}

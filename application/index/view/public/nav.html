@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">{$siteName|default="瞎逼逼"}</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li
+                        {empty name="$Request.param.cate_id"}
+                            class="active"
+                        {/empty}
+                        ><a href="{:url('index/index')}">首页</a></li>
+                        {volist name="cateList" id="cate"}
+                        <li
+                        {eq name="$cate.id" value="$Request.param.cate_id" }
+                         class="active"
+                        {/eq}
+                        ><a href="{:url('index/index',['cate_id'=>$cate.id])}">{$cate.name}</a></li>
+                        {/volist}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">其他 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">小游戏</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">还没想好放什么</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">同上</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" name="keywords" class="form-control" placeholder="查找想要的功能">
+                        </div>
+                        <button type="submit" class="btn btn-default">查询</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        {if $Think.session.user_id}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$Think.session.user_name} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://gblc.io/admin.php">个人管理</a></li>
+                                <li><a href="{:url('index/insert')}">我要逼逼</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{:url('user/logout')}">退出登陆</a></li>
+                            </ul>
+                        </li>
+                        {else/}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">登陆/注册 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{:url('User/login')}">登陆</a></li>
+                                <li><a href="{:url('User/register')}">注册</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">找回密码</a></li>
+                            </ul>
+                        </li>
+                        {/if}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+</div>

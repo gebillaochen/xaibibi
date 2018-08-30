@@ -1,0 +1,43 @@
+{layout name="public:layout"/}
+
+<h4 class="text-center text-success">逼逼列表</h4>
+<hr>
+
+<table class="table table-hover text-center">
+    <tr>
+        <td>ID</td>
+        <td>标题</td>
+        <td>栏目</td>
+        {eq name="$Think.session.is_admin" value="1"}
+        <td>作者</td>
+        {/eq}
+        <td>阅读量</td>
+        <td>创建时间</td>
+        <td colspan="2">操作</td>
+    </tr>
+    {volist name="ArticleList" id="Article" empty="$empty"}
+    <tr>
+        <td>{$Article.id}</td>
+        <td>{$Article.title}</td>
+        <td>{$Article.cate_id|getCateName}</td>
+        {eq name="$Think.session.is_admin" value="1"}
+        <td>{$Article.user_id|getUserName}</td>
+        {/eq}
+        <td>{$Article.pv}</td>
+        <td>{$Article.create_time}</td>
+        {eq name="$Think.session.user_id" value="$Article.user_id"}
+        <td><a href="{:url('Article/artEdit',['id'=>$Article.id])}">编辑</a></td>
+        {/eq}
+        <td><a onclick="dele({$Article.id});return false">删除</a></td>
+
+    </tr>
+    {/volist}
+</table>
+<div class="text-center">{$ArticleList|raw}</div>
+<script>
+    function dele(id) {
+        if (confirm('确认删除吗？')==true){
+            window.location.href="{:url('Article/doDelete')}"+"?id="+id;
+        }
+    }
+</script>

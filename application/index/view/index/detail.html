@@ -1,0 +1,73 @@
+{include file="public:header"/}
+{include file="public:nav"/}
+<div class="row">
+    <div class="col-md-8">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>{$art.title}</h3>
+                <p>
+                    发布者：{$art.user_id|getUserName} &nbsp;&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-time" aria-hidden="true">{$art.create_time|date='Y-m-d H:i'}</span>
+                    <br>
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true">阅读量：{$art.pv}</span>
+                    <button type="button" name="fav" id="fav" user_id="{$art.user_id}" session_id="{$Think.session.user_id}" article_id="{$art.id}" style="float: right" class="btn btn-default">
+                        点击收藏
+                    </button>
+                </p>
+                <hr>
+                <?php echo html_entity_decode($art['content'],ENT_HTML5 ,"UTF-8");?>
+                <hr>
+            </div>
+        </div>
+
+    </div>
+    {include file="public:right"/}
+</div>
+
+<script>
+
+    $(function () {
+        $('#fav').on('click',function () {
+            //获取当前用户
+            var userId = $(this).attr('user_id')
+            var artId = $(this).attr('article_id')
+            var sessionId = $(this).attr('session_id')
+            if (userId && artId){
+                $.ajax(
+                    {
+                        type:'get',
+                        url:"{:url('index/fav')}",
+                        data:{
+                            user_id:userId,
+                            article_id:artId,
+                            session_id:sessionId,
+                            time:new Date().getTime()
+                        },
+                        dataType:'json',
+                        success: function (data) {
+                            switch (data.status)
+                            {
+                                case 1:
+                                    $("#fav").attr('class','btn btn-success')
+                                    $("#fav").text(data.message)
+                                    break
+                                case 0:
+                                    $("#fav").attr('class','btn btn-default')
+                                    $("#fav").text(data.message)
+                                    break
+                                case -1:
+                                    alert(data.message)
+                                    break
+                                case -2:
+                                    alert(data.message)
+                                    break
+                            }
+                        }
+                    }
+                )
+            }
+        })
+    });
+
+</script>
+{include file="public:footer"/}
