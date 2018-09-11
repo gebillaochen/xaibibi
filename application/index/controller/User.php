@@ -35,6 +35,7 @@ class User extends Base
                     $res = UserModel::get($user->id);
                     Session::set('user_id',$res->id);
                     Session::set('user_name',$res->name);
+                    Session::set('is_admin',$result['is_admin']);
                     return ['status'=>1,'message'=>'恭喜，注册成功'];
                 }else{
                     return ['status'=>0,'message'=>'注册失败'];
@@ -53,6 +54,7 @@ class User extends Base
 
     //登陆验证
     public function loginCheck(){
+        $this->isLogin();
         if (Request::isAjax()){
             //验证数据
             $data = Request::post();
@@ -68,17 +70,17 @@ class User extends Base
                 //执行查询
                 $result = UserModel::get(function ($query) use ($data){
                     $query->where('email',$data['email'])
-                            ->where('password',sha1($data['password'])
-                );
+                        ->where('password',sha1($data['password'])
+                        );
                 });
                 if (null==$result){
-                    return ['status'=>0,'message'=>'登陆失败,邮箱或密码不正确'];
+                    return ['status'=>0,'message'=>',邮箱或密码不正确'];
 
                 }else{
                     //将用户的数据写到Session
                     Session::set('user_id',$result->id);
                     Session::set('user_name',$result->name);
-                    return ['status'=>1,'message'=>'恭喜，登陆成功'];
+                    return ['status'=>1,'message'=>'正在跳转！'];
 
                 }
             }

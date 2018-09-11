@@ -4,7 +4,9 @@ use app\common\controller\Base;
 use app\common\model\ArtCate;
 use app\common\model\Article;
 use think\Db;
+use think\validate;
 use think\facade\Request;//导入静态代理
+use think\File;
 class Index extends Base
 {
     //首页
@@ -69,20 +71,6 @@ class Index extends Base
                     //验证失败
                     echo '<script>alert("'.$res.'");location.back()</script>';
                 }else{
-                    //获取图片
-                    $file = Request::file('title_img');
-                    //文件验证成功后上传到服务器的指定目录
-                    $info =  $file->validate([
-                        'size'=>1000000,
-                        'ext'=>'jpeg,jpg,png,gif',
-
-                        ])->move('uploads');
-                    if ($info){
-                        $data['title_img'] = $info->getSaveName();
-                    }else{
-                        $this->error($file->getError());
-                    }
-
                     if (Article::create($data)){
                         $this->success('发布成功','index/index');
                     }else{

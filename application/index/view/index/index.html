@@ -1,13 +1,15 @@
 {include file="public:header"/}
     {include file="public:nav"/}
+<div class="jumbotron">
+    <h1>欢迎来到瞎逼逼网！</h1>
+    <p>在这里！你可以！说出自己曾经或者现在想说但是没有说出口的话！</p>
+    <p>也可以！随意瞎逼逼！反正也不会有人知道你是谁！嘿嘿</p>
+    <p><a class="btn btn-primary btn-lg" href="{:url('index/insert')}" role="button">我要逼逼</a></p>
+</div>
     <div class="row">
         <div class="col-md-8">
-            <div class="page-header">
-                <h2>{$cateName}</h2>
-            </div>
             {voList name="artList" id="art" empty="$empty"}
             <div class="thumbnail">
-                <img src="/uploads/{$art.title_img}" style="margin-right: 20px;margin-left: 15px; margin-top: 10px; float: left;width: 210px;height: 150px"/>
                 <div class="caption">
                     <h3>{$art.title}</h3>
                     <p>
@@ -17,7 +19,6 @@
                     </p>
                     <p>逼逼简介:{$art.content|getArtContent}</p>
                     <p><a href="{:url('detail',['id'=>$art.id])}" class="btn btn-primary" role="button">看他怎么逼逼</a></p>
-                    <hr>
                 </div>
             </div>
             {/voList}

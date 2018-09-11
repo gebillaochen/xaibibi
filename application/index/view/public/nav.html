@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <nav class="navbar navbar-inverse ">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -41,7 +41,7 @@
                     </ul>
                     <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" name="keywords" class="form-control" placeholder="查找想要的功能">
+                            <input type="text" name="keywords" class="form-control" placeholder="查找想要看的逼逼">
                         </div>
                         <button type="submit" class="btn btn-default">查询</button>
                     </form>
@@ -50,7 +50,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$Think.session.user_name} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="http://gblc.io/admin.php">个人管理</a></li>
+                                <li><a href="{:url('admin.php')}">个人管理</a></li>
                                 <li><a href="{:url('index/insert')}">我要逼逼</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{:url('user/logout')}">退出登陆</a></li>
@@ -71,5 +71,6 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+
     </div>
 </div>
